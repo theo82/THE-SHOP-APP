@@ -35,7 +35,7 @@ const ProductItem = props => {
                 </View>
                 <View style={styles.actions}>
                     <Button color={Colors.primary} title="View Details" onPress={props.onViewDetail} />
-                    <Button color={Colors.accent} title="To Cart" onPress={props.onAddToCart}/>
+                    <Button color={Colors.primary} title="To Cart" onPress={props.onAddToCart}/>
                 </View>
                 </View>
             </TouchambleCmp>  
