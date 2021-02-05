@@ -29,7 +29,7 @@ const defaultNavOptions = {
 
 const ProductsNavigator = createStackNavigator({
     ProductsOverview: ProductsOverViewScreen,
-    ProductDetail: ProductDetailScreen,
+    ProductDetails: ProductDetailScreen,
     Cart: CartScreen
 },
 {
