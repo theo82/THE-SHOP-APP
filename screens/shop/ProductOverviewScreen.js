@@ -9,17 +9,19 @@ import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import HeaderButton from '../../components/UI/HeaderButton';
 import Colors from '../../constants/Colors';
 
+import * as productsActions from '../../store/actions/products';
+
 const ProductsOverviewScreen = props => {
 
    const products = useSelector(state => state.products.availableProducts); 
    const dispatch = useDispatch();
 
    const selectItemHandler = (id, title) => {
-    props.navigation.navigate('ProductDetail', { 
-        productId: id,
-        productTitle: title
-    })
-   };
+    props.navigation.navigate('ProductDetails', {
+      productId: id,
+      productTitle: title
+    });
+  };
 
    return ( 
         <FlatList 
