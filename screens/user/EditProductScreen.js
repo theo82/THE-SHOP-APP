@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect, useReducer } from 'react';
 import { View, ScrollView, Text, TextInput, StyleSheet, Platform, Alert } from 'react-native';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import HeaderButton from '../../components/UI/HeaderButton';
@@ -6,6 +6,13 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import * as productsActions from '../../store/actions/products';
 
+const FORM_INPUT_UPDATE = 'FORM_INPUT_UPDATE';
+
+const formReducer = (state, action) => {
+  if(action.type === FORM_INPUT_UPDATE) {
+    
+  }
+}
 
 const EditProductScreen = props => {
 
@@ -15,6 +22,29 @@ const EditProductScreen = props => {
     )
 
     const dispatch = useDispatch();
+    
+    // The formReducer function should be
+    // able to change that state when an action
+    // is dispatched. And that happens when we type
+    // in our text inputs.
+
+    // The useReducer will return a state snapshot (formState in our case)
+    // and a function that will allow us to dispatch actions. 
+    const [formState, dispatchFormState] = useReducer(formReducer, {
+      inputValues: {
+        title: editedProduct ? editedProduct.title : '',
+        imageUrl: editedProduct ? editedProduct.imageUrl : '',
+        description: editedProduct ? editedProduct.description : '',
+        price: '',
+      },
+      inputValidities: {
+        title: editedProduct ? true : false,
+        imageUrl: editedProduct ? true : false,
+        description: editedProduct ? true : false,
+        price: editedProduct ? true : false,
+      },
+      formIsValid: editedProduct ? true : false
+    })
 
     const [title, setTitle] = useState(editedProduct ? editedProduct.title : '');
     const [titleIsValid, setTitleIsValid] = useState(false);
@@ -39,19 +69,25 @@ const EditProductScreen = props => {
           );
         }
         props.navigation.goBack();
-      }, [dispatch, prodId, title, description, imageUrl, price]);
+      }, [dispatch, prodId, title, description, imageUrl, price, titleIsValid]);
      
       useEffect(() => {
         props.navigation.setParams({ submit: submitHandler });
       }, [submitHandler]);
 
     const titleChangeHandler = text => {
-      if (text.trim().length === 0) {
-        setTitleIsValid(false);
+      let isValid = false;
+      if (text.trim().length > 0) {
+        
       } else {
-        setTitleIsValid(true);
+        
       }
-      setTitle(text);
+      dispatchFormState({
+        type: FORM_INPUT_UPDATE, 
+        value: text, 
+        isValid: isValid,
+        input: 'title'
+      })
     }
 
 
