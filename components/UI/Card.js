@@ -7,7 +7,7 @@ const Card = props => {
     </View>
 };
 
-const style = StyleSheet.create({
+const styles = StyleSheet.create({
     card: {
         shadowColor: 'black',
         shadowOpacity: 0.26,
