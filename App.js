@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { createStore, combineReducers } from 'redux';
+import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
 import { Provider } from 'react-redux';
 
 import productsReducer from './store/reducers/products';
@@ -18,7 +19,7 @@ const rootReducer = combineReducers({
   orders: ordersReducers
 });
 
-const store = createStore(rootReducer);
+const store = createStore(rootReducer, composeWithDevTools());
 
 export default function App() {
 
