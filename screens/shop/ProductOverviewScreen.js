@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { FlatList, Text, Platform, Button } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -15,6 +15,10 @@ const ProductsOverviewScreen = props => {
 
    const products = useSelector(state => state.products.availableProducts); 
    const dispatch = useDispatch();
+
+   useEffect(() => {
+    dispatch(productsActions.fetchProducts());
+   },[dispatch])
 
    const selectItemHandler = (id, title) => {
     props.navigation.navigate('ProductDetails', {
