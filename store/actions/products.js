@@ -6,9 +6,13 @@ export const UPDATE_PRODUCT = 'UPDATE_PRODUCT';
 export const SET_PRODUCTS = 'SET_PRODUCTS';
 
 export const fetchProducts = () => {
-
     return async dispatch => {
+    try{
         const response = await fetch('https://the-shop-app-318d2-default-rtdb.europe-west1.firebasedatabase.app/products.json');
+
+        if(!response.ok) {
+            throw new Error('Something went wrong!');
+        }
 
         const resData = await response.json();
         const loadedProducts = [];
@@ -25,9 +29,11 @@ export const fetchProducts = () => {
                 )
             );
         }
-
         dispatch({type: SET_PRODUCTS, products: loadedProducts })
+    } catch(err) {
+      throw err;
     }
+  } 
 }
 
 export const deleteProduct = (productId) => {
