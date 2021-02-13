@@ -13,19 +13,21 @@ import * as productsActions from '../../store/actions/products';
 
 const ProductsOverviewScreen = props => {
    const [isLoading, setIsLoading] = useState(false);
+   const [isRefreshing, setIsRefreshing] = useState(false);
    const [error, setError] = useState(false);
    const products = useSelector(state => state.products.availableProducts); 
    const dispatch = useDispatch();
 
    const loadProducts = useCallback( async () => {
-        setIsLoading(true);
+        setError(null);
+        setIsRefreshing(true);
         try{
             await dispatch(productsActions.fetchProducts());
 
         }catch(err) {
             setError(err.message)
         }
-        setIsLoading(false);
+        setIsRefreshing(false);
    },[dispatch, setIsLoading, error])  
    
    useEffect(() => {
@@ -39,8 +41,11 @@ const ProductsOverviewScreen = props => {
    }, [loadProducts])
 
    useEffect(() => {
-       loadProducts();
-   }, [dispatch, loadProducts])
+    setIsLoading(true);
+    loadProducts().then(() => {
+      setIsLoading(false);
+    });
+  }, [dispatch, loadProducts]);
 
    const selectItemHandler = (id, title) => {
         props.navigation.navigate('ProductDetails', {
@@ -75,10 +80,14 @@ const ProductsOverviewScreen = props => {
 
    return ( 
         <FlatList 
+            onRefresh={loadProducts}
+            refreshing={isRefreshing}
             data={products} 
             keyExtractor={item => item.id} 
             renderItem={itemData => 
                 <ProductItem 
+                    onRefresh={loadProducts}
+                    refresh={isRefreshing}
                     image={itemData.item.imageUrl}
                     title={itemData.item.title}
                     price={itemData.item.price}
