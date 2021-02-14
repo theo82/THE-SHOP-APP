@@ -44,6 +44,8 @@ const EditProductScreen = props => {
     )
 
     const dispatch = useDispatch();
+
+    
     
     // The formReducer function should be
     // able to change that state when an action
