@@ -40,26 +40,21 @@ export const fetchProducts = () => {
   } 
 }
 
-export const deleteProduct = (productId) => {
-
-    return async dispatch => {
-        const response = await fetch(
-            `https://the-shop-app-318d2-default-rtdb.europe-west1.firebasedatabase.app/products/${productId}.json`,  
-            {
-            method: 'DELETE',
-        });
-
-        if(!response.ok) {
-            throw new Error('Something went wrong!');
+export const deleteProduct = productId => {
+    return async (dispatch, getState) => {
+      const token = getState().auth.token;
+      const response = await fetch(`https://the-shop-app-318d2-default-rtdb.europe-west1.firebasedatabase.app/products/${productId}.json?auth=${token}`,
+        {
+          method: 'DELETE'
         }
-
-        dispatch({
-            type: DELETE_PRODUCT,
-            pid: productId
-        })
-    }
-    
-}
+      );
+  
+      if (!response.ok) {
+        throw new Error('Something went wrong!');
+      }
+      dispatch({ type: DELETE_PRODUCT, pid: productId });
+    };
+  };
 
 export const createProduct = (title, description, imageUrl, price) => {
     return async (dispatch, getState) => {
