@@ -67,7 +67,7 @@ const UserProductsScreen = props => {
 
 UserProductsScreen.navigationOptions = navData => {
     return {
-        headerTitle: 'Your Products',
+        headerTitle: 'My Products',
         headerLeft: () => <HeaderButtons HeaderButtonComponent={HeaderButton}>
             <Item 
                 title='Menu' 

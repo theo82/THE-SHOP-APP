@@ -23,9 +23,13 @@
       "**/*"
     ],
     "ios": {
+      "bundleIdentifier": "com.tziomakas.theshoapp",
+      "buildNumber": "1.0.0",
       "supportsTablet": true
     },
     "android": {
+      "package": "com.tziomakas.theshoapp",
+      "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/places-adaptive.png",
         "backgroundColor": "#171717"
