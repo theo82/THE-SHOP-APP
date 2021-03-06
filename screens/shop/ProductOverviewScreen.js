@@ -36,7 +36,7 @@ const ProductsOverviewScreen = props => {
         loadProducts
       );
       return () => {
-          willFocusSub.remove();
+          willFocusSub;
       }
    }, [loadProducts])
 
