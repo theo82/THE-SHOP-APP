@@ -1,11 +1,13 @@
 import React from 'react';
-import { ProductsNavigator } from './ShopNavigator';
+import { ShopNavigator, AuthNavigator } from './ShopNavigator';
 import { useSelector } from "react-redux";
 import { NavigationContainer } from "@react-navigation/native";
 import ProductsOverviewScreen from '../screens/shop/ProductOverviewScreen';
+import StartupScreen from '../screens/StartupScreen';
 
 const AppNavigator = props => {
     const isAuth = useSelector(state => !!state.auth.token);
+    const didTryAutoLogin = useSelector(state => !!state.auth.didTryAutoLogin);
 
     // useEffect(() => {
     //         if(!isAuth) {
@@ -15,7 +17,9 @@ const AppNavigator = props => {
     // }, [isAuth])
     return (
         <NavigationContainer>
-            <ProductsNavigator />
+            {isAuth && <ShopNavigator />}
+            {!isAuth && didTryAutoLogin && <AuthNavigator />}
+            {!isAuth && !didTryAutoLogin && <StartupScreen />}
         </NavigationContainer>
     );
 }
