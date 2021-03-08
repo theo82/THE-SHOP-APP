@@ -216,12 +216,11 @@ const EditProductScreen = props => {
 };
 
 export const screenOptions = navData => {
-
-    const routeParams = navData.route.params ? navData.route.params : {};
-    return {
-        headerTitle: routeParams.submit ? 'Edit Product' : 'Add Product'   
-    }
-}
+  const routeParams = navData.route.params ? navData.route.params : {};
+  return {
+    headerTitle: routeParams.productId ? 'Edit Product' : 'Add Product'
+  };
+};
 
 const styles = StyleSheet.create({
     form: {
