@@ -57,7 +57,7 @@ export const ProductsNavigator = () => {
         options={productsOverviewScreenOptions}
       />
       <ProductsStackNavigator.Screen
-        name="ProductDetail"
+        name="ProductDetails"
         component={ProductDetailScreen}
         options={productDetailScreenOptions}
       />
