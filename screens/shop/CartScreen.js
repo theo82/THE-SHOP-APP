@@ -18,15 +18,15 @@ const CartScreen = props => {
     const [isLoading, setIsLoading] = useState(false);
     const cartTotalAmount = useSelector(state => state.cart.totalAmount);
     const cartItems = useSelector(state => {
-
         const transformedCartItems = [];
-        for(const key in state.cart.items) {
+        for (const key in state.cart.items) {
            transformedCartItems.push({
                productId: key,
                productTitle: state.cart.items[key].productTitle,
                productPrice: state.cart.items[key].productPrice,
                quantity: state.cart.items[key].quantity,
-               sum: state.cart.items[key].sum
+               sum: state.cart.items[key].sum,
+               productPushToken: state.cart.items[key].pushToken
            }) 
         }
         return transformedCartItems.sort(
